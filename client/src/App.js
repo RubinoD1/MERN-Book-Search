@@ -1,4 +1,6 @@
 import React from 'react';
+// ApolloProvider is a React component that provides data to all of the other components. 
+// ApolloCLient is a constructor function that helps initialize the connection to GraphQL API server. 
 import { ApolloProvider, ApolloClient} from '@apollo/client';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -21,7 +23,9 @@ const client = new ApolloClient({
 });
 
 
-
+/* The entire JSX code is wrapped with ApolloProvider because we're passing the client variable 
+in as the value for the client prop in the provider. Everything between the JSX tags will have access to the 
+server's API data through the client that is set up. */ 
 function App() {
   return (
   <ApolloProvider  client ={client}>
