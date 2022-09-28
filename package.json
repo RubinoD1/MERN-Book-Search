@@ -1,7 +1,7 @@
 {
   "name": "googlebooks-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "GitHub Repository: https://github.com/RubinoD1/MERN-Book-Search",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -13,6 +13,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
-  }
+    "concurrently": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RubinoD1/MERN-Book-Search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RubinoD1/MERN-Book-Search/issues"
+  },
+  "homepage": "https://github.com/RubinoD1/MERN-Book-Search#readme"
 }

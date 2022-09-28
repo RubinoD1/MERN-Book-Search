@@ -1,18 +1,40 @@
 import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
   const [deleteBook] = useMutation(REMOVE_BOOK);
-  const userData = data?.me || {};
+  const { loading, data } = useQuery(GET_ME);
 
-  if(!userData?.username) {
+  const userData = data?.me;
+  
+  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  const handleDeleteBook = async (bookId) => {
+    try {
+      const { data } = await deleteBook({ variables: { bookId: bookId } });
+
+      if (!data) {
+        throw new Error('something went wrong!');
+      }
+
+      // upon success, remove book's id from localStorage
+      removeBookId(bookId);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (!Auth.loggedIn()) {
     return (
       <h4>
         You need to be logged in to view this page. 
@@ -20,36 +42,7 @@ const SavedBooks = () => {
     );
   }
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      await deleteBook({
-        variables: {bookId: bookId},
-        update: cache => {
-          const data = cache.readQuery({ query: GET_ME });
-          const userDataCache = data.me;
-          const savedBooksCache = userDataCache.savedBooks;
-          const updatedBookCache = savedBooksCache.filter((book) => book.bookId !== bookId);
-          data.me.savedBooks = updatedBookCache;
-          cache.writeQuery({ query: GET_ME , data: {data: {...data.me.savedBooks}}})
-        }
-      });
-      // upon success, remove book's id from localStorage
-      removeBookId(bookId);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  // if data isn't here yet, say so
-  if (loading) {
-    return <h2>LOADING...</h2>;
-  }
+  
 
   return (
     <>
