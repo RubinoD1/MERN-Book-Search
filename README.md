@@ -2,34 +2,27 @@
 
 GitHub Repository: https://github.com/RubinoD1/MERN-Book-Search
 
-Live Page:
+Live Page: https://pure-river-39227.herokuapp.com/ 
 
 ## Introduction 
 
-User Story
+This is a MERN book search application that allows users to search for books using the Google Books API. Functionality of this app includes:
 
+- The ability to make a user account / login using email and password credentials. 
+- The ability to search for books
+- Logged in users have the extra functionality of being able to save / remove items from a saved book list. 
+
+## User Story
+
+```
 AS AN avid reader
 I WANT to search for new books to read
 SO THAT I can keep a list of books to purchase
-
+```
 
 ## Pseudocode 
 
-To fulfill the Challenge, you’ll need to do the following:
-
-    Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
-
-    Modify the existing authentication middleware so that it works in the context of a GraphQL API.
-
-    Create an Apollo Provider so that requests can communicate with an Apollo Server.
-
-    Deploy the application to Heroku.
-
-
-To-Do 
-
-1) When I load the search engine: 
-Presented with a menu with these options
+1) When I load the search engine, I am  presented with a menu with these options:
 - Search for books 
 - Login/ signup 
 - input option to search for books and a submit button 
@@ -88,3 +81,9 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 
 ## Screenshots 
+
+![Homepage](/images/homepage.png)
+
+![Search](/images/search.png)
+
+![Saved Books](/images/saved%20book.png)
